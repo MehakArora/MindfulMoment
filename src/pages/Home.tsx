@@ -6,7 +6,7 @@ import { SessionType, SessionDuration } from '../types'
 const durations: SessionDuration[] = [1, 3, 5, 10]
 
 export default function Home() {
-  const { participantId, logout, startSession } = useApp()
+  const { participantId, logout } = useApp()
   const navigate = useNavigate()
   const [selectedType, setSelectedType] = useState<SessionType | null>(null)
   const [selectedDuration, setSelectedDuration] = useState<SessionDuration | null>(null)
