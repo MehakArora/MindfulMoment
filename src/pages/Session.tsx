@@ -82,11 +82,15 @@ export default function Session() {
     setIsPaused(false)
   }
 
+  const isBoxBreathing = currentSession.sessionType === 'breathwork' && currentSession.breathworkType === 'box'
+
   return (
     <div className="min-h-screen relative overflow-hidden">
       {/* Background */}
       {currentSession.sessionType === 'meditation' ? (
         <MeditationBackground />
+      ) : isBoxBreathing ? (
+        <div className="absolute inset-0 bg-[#FFF8E7]" /> // Cream background for box breathing
       ) : (
         <div className="absolute inset-0 bg-gradient-to-b from-ocean-200 to-ocean-400" />
       )}
@@ -95,8 +99,8 @@ export default function Session() {
       <div className="relative z-10 min-h-screen flex flex-col items-center justify-center p-6">
         {/* Timer */}
         <div className="text-center mb-8">
-          <p className="text-white/80 text-sm mb-1">Time remaining</p>
-          <p className="text-5xl font-light text-white tabular-nums">
+          <p className={`text-sm mb-1 ${isBoxBreathing ? 'text-gray-500' : 'text-white/80'}`}>Time remaining</p>
+          <p className={`text-5xl font-light tabular-nums ${isBoxBreathing ? 'text-gray-700' : 'text-white'}`}>
             {formatTime(remainingSeconds)}
           </p>
         </div>
@@ -119,9 +123,9 @@ export default function Session() {
 
         {/* Progress bar */}
         <div className="w-full max-w-sm mb-6">
-          <div className="h-2 bg-white/20 rounded-full overflow-hidden">
+          <div className={`h-2 rounded-full overflow-hidden ${isBoxBreathing ? 'bg-[#9CAF88]/30' : 'bg-white/20'}`}>
             <div 
-              className="h-full bg-white/80 transition-all duration-1000 ease-linear rounded-full"
+              className={`h-full transition-all duration-1000 ease-linear rounded-full ${isBoxBreathing ? 'bg-[#5C7A4A]' : 'bg-white/80'}`}
               style={{ width: `${progress}%` }}
             />
           </div>
@@ -131,15 +135,21 @@ export default function Session() {
         <div className="flex gap-4">
           <button
             onClick={handleExit}
-            className="px-6 py-3 bg-white/20 text-white rounded-xl 
-                     hover:bg-white/30 transition-colors backdrop-blur-sm"
+            className={`px-6 py-3 rounded-xl transition-colors ${
+              isBoxBreathing 
+                ? 'bg-[#9CAF88]/30 text-gray-700 hover:bg-[#9CAF88]/50' 
+                : 'bg-white/20 text-white hover:bg-white/30 backdrop-blur-sm'
+            }`}
           >
             Exit
           </button>
           <button
             onClick={handlePauseToggle}
-            className="px-8 py-3 bg-white text-ocean-600 rounded-xl font-medium
-                     hover:bg-white/90 transition-colors shadow-lg"
+            className={`px-8 py-3 rounded-xl font-medium transition-colors shadow-lg ${
+              isBoxBreathing
+                ? 'bg-[#5C7A4A] text-white hover:bg-[#4A6339]'
+                : 'bg-white text-ocean-600 hover:bg-white/90'
+            }`}
           >
             {isPaused ? 'Resume' : 'Pause'}
           </button>

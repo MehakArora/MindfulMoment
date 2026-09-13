@@ -89,6 +89,10 @@ export default function BoxBreathing({ isPaused }: BoxBreathingProps) {
   const boxSize = 200
   const strokeWidth = 8
 
+  // Sage green colors
+  const sageBase = '#9CAF88' // Light sage green for inactive
+  const sageActive = '#5C7A4A' // Darker sage green for active/lit up
+
   return (
     <div className="flex flex-col items-center">
       {/* Box visualization */}
@@ -104,7 +108,7 @@ export default function BoxBreathing({ isPaused }: BoxBreathingProps) {
             width={boxSize - strokeWidth}
             height={boxSize - strokeWidth}
             fill="none"
-            stroke="rgba(255,255,255,0.2)"
+            stroke={sageBase}
             strokeWidth={strokeWidth}
             rx={12}
           />
@@ -115,7 +119,7 @@ export default function BoxBreathing({ isPaused }: BoxBreathingProps) {
             y1={strokeWidth / 2}
             x2={boxSize - strokeWidth}
             y2={strokeWidth / 2}
-            stroke={activeSide === 'top' ? '#60a5fa' : 'rgba(255,255,255,0.4)'}
+            stroke={activeSide === 'top' ? sageActive : sageBase}
             strokeWidth={strokeWidth}
             strokeLinecap="round"
             strokeDasharray={boxSize - strokeWidth * 2}
@@ -129,7 +133,7 @@ export default function BoxBreathing({ isPaused }: BoxBreathingProps) {
             y1={strokeWidth}
             x2={boxSize - strokeWidth / 2}
             y2={boxSize - strokeWidth}
-            stroke={activeSide === 'right' ? '#60a5fa' : 'rgba(255,255,255,0.4)'}
+            stroke={activeSide === 'right' ? sageActive : sageBase}
             strokeWidth={strokeWidth}
             strokeLinecap="round"
             strokeDasharray={boxSize - strokeWidth * 2}
@@ -143,7 +147,7 @@ export default function BoxBreathing({ isPaused }: BoxBreathingProps) {
             y1={boxSize - strokeWidth / 2}
             x2={strokeWidth}
             y2={boxSize - strokeWidth / 2}
-            stroke={activeSide === 'bottom' ? '#60a5fa' : 'rgba(255,255,255,0.4)'}
+            stroke={activeSide === 'bottom' ? sageActive : sageBase}
             strokeWidth={strokeWidth}
             strokeLinecap="round"
             strokeDasharray={boxSize - strokeWidth * 2}
@@ -157,7 +161,7 @@ export default function BoxBreathing({ isPaused }: BoxBreathingProps) {
             y1={boxSize - strokeWidth}
             x2={strokeWidth / 2}
             y2={strokeWidth}
-            stroke={activeSide === 'left' ? '#60a5fa' : 'rgba(255,255,255,0.4)'}
+            stroke={activeSide === 'left' ? sageActive : sageBase}
             strokeWidth={strokeWidth}
             strokeLinecap="round"
             strokeDasharray={boxSize - strokeWidth * 2}
@@ -180,7 +184,7 @@ export default function BoxBreathing({ isPaused }: BoxBreathingProps) {
                 cx={positions[i].cx}
                 cy={positions[i].cy}
                 r={isActive ? 10 : 6}
-                fill={isActive ? '#60a5fa' : 'rgba(255,255,255,0.4)'}
+                fill={isActive ? sageActive : sageBase}
                 className="transition-all duration-300"
               />
             )
@@ -190,11 +194,11 @@ export default function BoxBreathing({ isPaused }: BoxBreathingProps) {
         {/* Center instruction */}
         <div className="absolute inset-0 flex items-center justify-center">
           <div className="text-center">
-            <p className="text-white text-xl font-medium">
+            <p className="text-gray-700 text-xl font-medium">
               {isPaused ? 'Paused' : getInstruction()}
             </p>
             {!isPaused && (
-              <p className="text-white/60 text-sm mt-1">
+              <p className="text-gray-500 text-sm mt-1">
                 {Math.ceil(4 - progress * 4)}s
               </p>
             )}

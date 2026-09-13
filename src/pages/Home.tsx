@@ -69,10 +69,7 @@ export default function Home() {
           <div className="mb-4">
             <div className="flex items-center gap-2 mb-2">
               <span className="text-2xl">🐡</span>
-              <div>
-                <p className="font-medium text-gray-700">Puffer Fish Breathing</p>
-                <p className="text-xs text-gray-500">4s in, 2s hold, 4s out, 2s hold</p>
-              </div>
+              <p className="font-medium text-gray-700">Puffer Fish Breathing</p>
             </div>
             <div className="grid grid-cols-4 gap-2">
               {durations.map(d => (
@@ -95,10 +92,7 @@ export default function Home() {
           <div>
             <div className="flex items-center gap-2 mb-2">
               <span className="text-2xl">⬜</span>
-              <div>
-                <p className="font-medium text-gray-700">Box Breathing</p>
-                <p className="text-xs text-gray-500">4s in, 4s hold, 4s out, 4s hold</p>
-              </div>
+              <p className="font-medium text-gray-700">Box Breathing</p>
             </div>
             <div className="grid grid-cols-4 gap-2">
               {durations.map(d => (
