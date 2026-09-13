@@ -1,3 +1,4 @@
+export type BreathworkType = 'pufferfish' | 'box'
 export type SessionType = 'breathwork' | 'meditation'
 
 export type SessionDuration = 1 | 3 | 5 | 10
@@ -6,6 +7,7 @@ export interface Session {
   id: string
   participantId: string
   sessionType: SessionType
+  breathworkType?: BreathworkType
   duration: SessionDuration
   startTime: string
   endTime: string | null

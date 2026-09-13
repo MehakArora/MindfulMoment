@@ -2,7 +2,9 @@ import { useState, useEffect, useRef } from 'react'
 import { useNavigate, Navigate } from 'react-router-dom'
 import { useApp } from '../context'
 import PufferFish from '../components/PufferFish'
+import BoxBreathing from '../components/BoxBreathing'
 import MeditationBackground from '../components/MeditationBackground'
+import { initAudio } from '../utils/audio'
 
 export default function Session() {
   const { currentSession, updateSession } = useApp()
@@ -50,8 +52,19 @@ export default function Session() {
   }, [isComplete, navigate, updateSession])
 
   const handlePauseToggle = () => {
+    if (isPaused) {
+      // Resuming - init audio
+      initAudio()
+    }
     setIsPaused(!isPaused)
   }
+
+  // Initialize audio on mount (for breathwork sessions)
+  useEffect(() => {
+    if (currentSession.sessionType === 'breathwork') {
+      initAudio()
+    }
+  }, [])
 
   const handleExit = () => {
     setShowExitConfirm(true)
@@ -91,7 +104,11 @@ export default function Session() {
         {/* Visual */}
         <div className="flex-1 flex items-center justify-center w-full max-w-sm">
           {currentSession.sessionType === 'breathwork' ? (
-            <PufferFish isPaused={isPaused} />
+            currentSession.breathworkType === 'box' ? (
+              <BoxBreathing isPaused={isPaused} />
+            ) : (
+              <PufferFish isPaused={isPaused} />
+            )
           ) : (
             <div className="text-center text-white/90">
               <p className="text-xl mb-2">Breathe deeply</p>

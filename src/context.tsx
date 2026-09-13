@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react'
-import { Session, SessionType, SessionDuration } from './types'
+import { Session, SessionType, SessionDuration, BreathworkType } from './types'
 import { saveParticipant, getParticipant, saveSession, generateSessionId } from './db'
 
 interface AppContextType {
@@ -7,7 +7,7 @@ interface AppContextType {
   currentSession: Partial<Session> | null
   login: (id: string) => Promise<boolean>
   logout: () => void
-  startSession: (type: SessionType, duration: SessionDuration, preStress: number) => void
+  startSession: (type: SessionType, duration: SessionDuration, preStress: number, breathworkType?: BreathworkType) => void
   updateSession: (updates: Partial<Session>) => void
   completeSession: (postStress: number, wasHelpful: boolean, completionPercentage: number) => Promise<void>
   cancelSession: (completionPercentage: number, postStress?: number, wasHelpful?: boolean) => Promise<void>
@@ -56,13 +56,14 @@ export function AppProvider({ children }: { children: ReactNode }) {
     setCurrentSession(null)
   }
 
-  const startSession = (type: SessionType, duration: SessionDuration, preStress: number) => {
+  const startSession = (type: SessionType, duration: SessionDuration, preStress: number, breathworkType?: BreathworkType) => {
     if (!participantId) return
     
     const session: Partial<Session> = {
       id: generateSessionId(),
       participantId,
       sessionType: type,
+      breathworkType,
       duration,
       startTime: new Date().toISOString(),
       preStressRating: preStress,

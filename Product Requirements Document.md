@@ -48,19 +48,30 @@ Secondary: DNP researcher / study administrator (needs read access to aggregated
 
 ### Guided Sessions
 
-**Two session types, each with 4 durations (8 total sessions):**
+**Three session types (12 total sessions):**
 
 #### 1. Breathwork Sessions
+
+**a) Puffer Fish Breathing**
 - **Durations:** 1, 3, 5, 10 minutes
+- **Pattern:** 4s inhale, 2s hold, 4s exhale, 2s hold (12-second cycle)
 - **Visual:** Animated pufferfish that inflates on inhale and deflates on exhale
-- **Audio:** Breath sounds (inhale/exhale) synced with the pufferfish animation
+- **Audio:** Calming breath sounds (inhale/exhale tones)
+
+**b) Box Breathing**
+- **Durations:** 1, 3, 5, 10 minutes
+- **Pattern:** 4s inhale, 4s hold, 4s exhale, 4s hold (16-second cycle)
+- **Visual:** Square with sides that light up progressively (top=inhale, right=hold, bottom=exhale, left=hold)
+- **Audio:** Calming breath sounds (inhale/exhale tones)
 
 #### 2. Meditation Sessions
 - **Durations:** 1, 3, 5, 10 minutes
-- **Visual:** Calming background (water/nature imagery)
+- **Visual:** Calming background (night sky with mountains)
 - **Audio:** Guided meditation narration (provided by researcher)
 
-**Session selection UI:** All 8 options displayed on one page, visually grouped by type (Breathwork vs Meditation) with duration options under each.
+**Session selection UI:** All options displayed on one page, visually grouped:
+- Breathwork section with two rows (Puffer Fish Breathing, Box Breathing), each with duration options
+- Meditation section with duration options
 
 Simple playback controls: play/pause, progress indicator, exit (exit before completion should still log a "session incomplete" record — don't discard the data point).
 

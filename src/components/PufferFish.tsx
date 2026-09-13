@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
+import { playInhaleSound, playExhaleSound } from '../utils/audio'
 
 interface PufferFishProps {
   isPaused: boolean
@@ -18,6 +19,7 @@ const PHASE_ORDER: BreathPhase[] = ['inhale', 'hold-in', 'exhale', 'hold-out']
 export default function PufferFish({ isPaused }: PufferFishProps) {
   const [phase, setPhase] = useState<BreathPhase>('inhale')
   const [scale, setScale] = useState(1)
+  const hasPlayedInitialSound = useRef(false)
 
   useEffect(() => {
     if (isPaused) return
@@ -38,8 +40,11 @@ export default function PufferFish({ isPaused }: PufferFishProps) {
 
     if (phase === 'inhale') {
       setScale(1.5)
+      playInhaleSound()
+      hasPlayedInitialSound.current = true
     } else if (phase === 'exhale') {
       setScale(1)
+      playExhaleSound()
     }
   }, [phase, isPaused])
 

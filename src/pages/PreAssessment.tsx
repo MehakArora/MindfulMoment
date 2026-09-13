@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useNavigate, useLocation, Navigate } from 'react-router-dom'
 import { useApp } from '../context'
-import { SessionType, SessionDuration } from '../types'
+import { SessionType, SessionDuration, BreathworkType } from '../types'
 import StressSlider from '../components/StressSlider'
 
 export default function PreAssessment() {
@@ -10,15 +10,29 @@ export default function PreAssessment() {
   const navigate = useNavigate()
   const location = useLocation()
   
-  const state = location.state as { type: SessionType; duration: SessionDuration } | null
+  const state = location.state as { 
+    type: SessionType
+    duration: SessionDuration
+    breathworkType?: BreathworkType 
+  } | null
   
   if (!state) {
     return <Navigate to="/" replace />
   }
 
   const handleContinue = () => {
-    startSession(state.type, state.duration, stressLevel)
+    startSession(state.type, state.duration, stressLevel, state.breathworkType)
     navigate('/session')
+  }
+
+  const getIcon = () => {
+    if (state.type === 'meditation') return '🧘'
+    return state.breathworkType === 'box' ? '⬜' : '🐡'
+  }
+
+  const getLabel = () => {
+    if (state.type === 'meditation') return 'Meditation'
+    return state.breathworkType === 'box' ? 'Box Breathing' : 'Puffer Fish Breathing'
   }
 
   return (
@@ -27,13 +41,13 @@ export default function PreAssessment() {
         <div className="card">
           <div className="text-center mb-8">
             <span className="text-5xl mb-4 block">
-              {state.type === 'breathwork' ? '🐡' : '🧘'}
+              {getIcon()}
             </span>
             <h1 className="text-2xl font-bold text-ocean-800 mb-2">
               Before we begin
             </h1>
             <p className="text-gray-600">
-              {state.duration}-minute {state.type} session
+              {state.duration}-minute {getLabel()}
             </p>
           </div>
 
